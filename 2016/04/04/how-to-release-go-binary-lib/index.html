@@ -15,7 +15,6 @@
 
 
 liba/dummy.go, 调用代码先注释掉，避免冲突
-
 1234567891011121314package libaimport (">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go 发布二进制静态库的方法">
@@ -31,9 +30,8 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 
 
 liba/dummy.go, 调用代码先注释掉，避免冲突
-
 1234567891011121314package libaimport (">
-<meta property="og:updated_time" content="2016-04-04T07:17:24.000Z">
+<meta property="og:updated_time" content="2016-04-04T07:30:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go 发布二进制静态库的方法">
 <meta name="twitter:description" content="众所周知，Go的编译系统是针对源代码的，如果想发布一个二进制文件给别人，该怎么做？如何在CI上编译不同平台的C代码？
@@ -46,7 +44,6 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 
 
 liba/dummy.go, 调用代码先注释掉，避免冲突
-
 1234567891011121314package libaimport (">
   
     <link rel="alternate" href="/atom.xml" title="Programming Net" type="application/atom+xml">
@@ -99,7 +96,7 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
         <section id="main"><article id="post-how-to-release-go-binary-lib" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/04/how-to-release-go-binary-lib/" class="article-date">
-  <time datetime="2016-04-04T07:11:43.000Z" itemprop="datePublished">2016-04-04</time>
+  <time datetime="2016-04-04T07:30:43.000Z" itemprop="datePublished">2016-04-04</time>
 </a>
     
   </div>
@@ -127,10 +124,9 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 <li>项目各文件如下</li>
 </ol>
 <ul>
-<li>liba/dummy.go, 调用代码先注释掉，避免冲突</li>
-</ul>
+<li><p>liba/dummy.go, 调用代码先注释掉，避免冲突</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> liba</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> libdummy() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"this is in dummy lib"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// func LibTest() &#123;</span></span><br><span class="line"><span class="comment">//  fmt.Println("dummy library")</span></span><br><span class="line"><span class="comment">//  libdummy()</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<ul>
+</li>
 <li><p>liba/real.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> liba</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> libreal() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"this is in real lib"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> LibTest() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"real library"</span>)</span><br><span class="line">    libreal()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -157,7 +153,7 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://longbai.github.io/2016/04/04/how-to-release-go-binary-lib/" data-id="cimlo5xk90001icyhw94hh67w" class="article-share-link">Share</a>
+      <a data-url="https://longbai.github.io/2016/04/04/how-to-release-go-binary-lib/" data-id="cimloguq20000ypyhuqd4u8lx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -167,9 +163,9 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 <nav id="article-nav">
   
   
-    <a href="/2016/04/04/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/04/04/go-checkstyle/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Go代码风格检查</div>
     </a>
   
 </nav>
@@ -207,6 +203,10 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
         
           <li>
             <a href="/2016/04/04/how-to-release-go-binary-lib/">Go 发布二进制静态库的方法</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/04/go-checkstyle/">Go代码风格检查</a>
           </li>
         
           <li>

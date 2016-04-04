@@ -67,7 +67,7 @@
     <article id="post-how-to-release-go-binary-lib" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/04/04/how-to-release-go-binary-lib/" class="article-date">
-  <time datetime="2016-04-04T07:11:43.000Z" itemprop="datePublished">2016-04-04</time>
+  <time datetime="2016-04-04T07:30:43.000Z" itemprop="datePublished">2016-04-04</time>
 </a>
     
   </div>
@@ -95,10 +95,9 @@
 <li>项目各文件如下</li>
 </ol>
 <ul>
-<li>liba/dummy.go, 调用代码先注释掉，避免冲突</li>
-</ul>
+<li><p>liba/dummy.go, 调用代码先注释掉，避免冲突</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> liba</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> libdummy() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"this is in dummy lib"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// func LibTest() &#123;</span></span><br><span class="line"><span class="comment">//  fmt.Println("dummy library")</span></span><br><span class="line"><span class="comment">//  libdummy()</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<ul>
+</li>
 <li><p>liba/real.go</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> liba</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> libreal() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"this is in real lib"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> LibTest() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"real library"</span>)</span><br><span class="line">    libreal()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -125,7 +124,43 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://longbai.github.io/2016/04/04/how-to-release-go-binary-lib/" data-id="cimlo5xk90001icyhw94hh67w" class="article-share-link">Share</a>
+      <a data-url="https://longbai.github.io/2016/04/04/how-to-release-go-binary-lib/" data-id="cimloguq20000ypyhuqd4u8lx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-go-checkstyle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/04/go-checkstyle/" class="article-date">
+  <time datetime="2016-04-04T07:26:02.000Z" itemprop="datePublished">2016-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/04/go-checkstyle/">Go代码风格检查</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://longbai.github.io/2016/04/04/go-checkstyle/" data-id="cimloguqu0001ypyhtgw3dl1u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -161,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://longbai.github.io/2016/04/04/hello-world/" data-id="cimlo5xk20000icyhh9ey5mrr" class="article-share-link">Share</a>
+      <a data-url="https://longbai.github.io/2016/04/04/hello-world/" data-id="cimloguqy0002ypyhucmgjaru" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,6 +237,10 @@
         
           <li>
             <a href="/2016/04/04/how-to-release-go-binary-lib/">Go 发布二进制静态库的方法</a>
+          </li>
+        
+          <li>
+            <a href="/2016/04/04/go-checkstyle/">Go代码风格检查</a>
           </li>
         
           <li>
