@@ -8,12 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="众所周知，Go的编译系统是针对源代码的，如果想发布一个二进制文件给别人，该怎么做？如何在CI上编译不同平台的C代码？
 下面跟我一起来实验下：
-
-创建好项目在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码
-
-
-项目各文件如下
-
+1.创建好项目在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码
+2.项目各文件如下
 
 liba/dummy.go, 调用代码先注释掉，避免冲突
 1234567891011121314package libaimport (">
@@ -23,26 +19,18 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 <meta property="og:site_name" content="Programming Net">
 <meta property="og:description" content="众所周知，Go的编译系统是针对源代码的，如果想发布一个二进制文件给别人，该怎么做？如何在CI上编译不同平台的C代码？
 下面跟我一起来实验下：
-
-创建好项目在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码
-
-
-项目各文件如下
-
+1.创建好项目在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码
+2.项目各文件如下
 
 liba/dummy.go, 调用代码先注释掉，避免冲突
 1234567891011121314package libaimport (">
-<meta property="og:updated_time" content="2016-04-04T07:30:43.000Z">
+<meta property="og:updated_time" content="2016-08-22T16:06:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go 发布二进制静态库的方法">
 <meta name="twitter:description" content="众所周知，Go的编译系统是针对源代码的，如果想发布一个二进制文件给别人，该怎么做？如何在CI上编译不同平台的C代码？
 下面跟我一起来实验下：
-
-创建好项目在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码
-
-
-项目各文件如下
-
+1.创建好项目在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码
+2.项目各文件如下
 
 liba/dummy.go, 调用代码先注释掉，避免冲突
 1234567891011121314package libaimport (">
@@ -132,7 +120,7 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						
+						<a href="/tags/Go/" style="font-size: 10px;">Go</a>
 					</div>
 				</section>
 				
@@ -215,6 +203,10 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -225,12 +217,8 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
       
         <p>众所周知，Go的编译系统是针对源代码的，如果想发布一个二进制文件给别人，该怎么做？如何在CI上编译不同平台的C代码？</p>
 <p>下面跟我一起来实验下：</p>
-<ol>
-<li>创建好项目<br>在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码</li>
-</ol>
-<ol>
-<li>项目各文件如下</li>
-</ol>
+<p>1.创建好项目<br>在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码</p>
+<p>2.项目各文件如下</p>
 <ul>
 <li><p>liba/dummy.go, 调用代码先注释掉，避免冲突</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> liba</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> libdummy() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"this is in dummy lib"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// func LibTest() &#123;</span></span><br><span class="line"><span class="comment">//  fmt.Println("dummy library")</span></span><br><span class="line"><span class="comment">//  libdummy()</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
@@ -242,19 +230,10 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"liba"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">    liba.LibTest()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<ol>
-<li><p>好了，我们先编译真实的library, 得到.a 文件，并跑下看看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将真实的library 拷贝出来备用<br><code>cp  pkg/darwin_amd64/liba.a .</code></p>
-</li>
-<li><p>将real.go 的代码注释掉，dummy.go 的代码取消注释，并编译跑下看看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">dummy library</span><br><span class="line">this is in dummy lib</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>见证奇迹的时刻到了，我们把real.go 的实现给copy回来，编译跑下看看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: cp liba.a pkg/darwin_amd64</span><br><span class="line"> ~/exercises/golib: go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>3.好了，我们先编译真实的library, 得到.a 文件，并跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure></p>
+<p>4.将真实的library 拷贝出来备用<br><code>cp  pkg/darwin_amd64/liba.a .</code></p>
+<p>5.将real.go 的代码注释掉，dummy.go 的代码取消注释，并编译跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">dummy library</span><br><span class="line">this is in dummy lib</span><br></pre></td></tr></table></figure></p>
+<p>6.见证奇迹的时刻到了，我们把real.go 的实现给copy回来，编译跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: cp liba.a pkg/darwin_amd64</span><br><span class="line"> ~/exercises/golib: go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure></p>
 <p>通过这个实验，可以看出go最后的链接步骤是比较代码和.a文件的创建时间，如果.a 创建的晚，就不会再次对代码进行编译，只做链接。大家可以将上面的cp 换成mv验证下 :) 总结下，如果想发布二进制的go library，就要将.a 文件和 stub 代码一起交付给使用者，并且在编译的时候做一次替换。</p>
 <p>如果有些软件需要跨平台编译，而且还有些底层访问的C代码，可以先编译成.a 文件，然后放到CI 平台上，让Go交叉编译的时候链接就好了。 </p>
 
@@ -265,6 +244,15 @@ liba/dummy.go, 调用代码先注释掉，避免冲突
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/08/22/how-to-release-go-binary-lib-in-1.7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Go 1.7 发布二进制package
+        
+      </div>
+    </a>
   
   
     <a href="/2016/04/04/go-checkstyle/" id="article-nav-older" class="article-nav-link-wrap">

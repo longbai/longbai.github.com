@@ -101,7 +101,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						
+						<a href="/tags/Go/" style="font-size: 10px;">Go</a>
 					</div>
 				</section>
 				
@@ -161,6 +161,81 @@
 
       <div class="body-wrap">
   
+    <article id="post-how-to-release-go-binary-lib-in-1.7" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/22/how-to-release-go-binary-lib-in-1.7/" class="article-date">
+  	<time datetime="2016-08-22T15:40:34.000Z" itemprop="datePublished">2016-08-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/22/how-to-release-go-binary-lib-in-1.7/">Go 1.7 发布二进制package</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在前一篇文章中我们通过非正常的手段来发布二进制包，现在 Go 1.7官方增加了实验性质的发布二进制library的办法，让我们来试试。</p>
+<p>1.创建好项目<br>在src目录下创建两个包路径，lib17 和 main，lib17用来实验要发布的包</p>
+<p>2.项目各文件如下</p>
+<ul>
+<li><p>lib17/binary.go, 先实现代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> lib17</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> LibTest() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"Great, go 1.7 support release binary package"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>main/main.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"lib17"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">    lib17.LibTest()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>3.好了，我们先编译真实的library, 得到.a 文件，并跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/exercises/go17lib&gt; go install ./...</span><br><span class="line">~/exercises/go17lib&gt; bin/main</span><br><span class="line">Great, go 1.7 support release binary package</span><br></pre></td></tr></table></figure></p>
+<p>4.将lib17/binary.go 的实现代码注释掉，并且加上 //go:binary-only-package<br>看看</p>
+<ul>
+<li>lib17/binary.go, <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//go:binary-only-package</span></span><br><span class="line"><span class="keyword">package</span> lib17</span><br><span class="line"><span class="comment">//import (</span></span><br><span class="line"><span class="comment">//    "fmt"</span></span><br><span class="line"><span class="comment">//)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//func LibTest() &#123;</span></span><br><span class="line"><span class="comment">//    fmt.Println("Great, go 1.7 support release binary package")</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>5.编译跑下看看, 编译器没有任何抱怨<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/exercises/go17lib&gt; go install ./...</span><br><span class="line">~/exercises/go17lib&gt; bin/main</span><br><span class="line">Great, go 1.7 support release binary package</span><br></pre></td></tr></table></figure></p>
+<p>好了，测试结束，相对于之前的copy xxx.a 的方法，这种方法简单直接，但还是不太好用，文档略晦涩，看了半天才明白如何操作。建议Go 官方出一个export tool，直接把对应的Go file 生成，内部包含注释掉的函数名及其说明注释，类似jni 的 header 生成方式。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-how-to-release-go-binary-lib" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -189,12 +264,8 @@
       
         <p>众所周知，Go的编译系统是针对源代码的，如果想发布一个二进制文件给别人，该怎么做？如何在CI上编译不同平台的C代码？</p>
 <p>下面跟我一起来实验下：</p>
-<ol>
-<li>创建好项目<br>在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码</li>
-</ol>
-<ol>
-<li>项目各文件如下</li>
-</ol>
+<p>1.创建好项目<br>在src目录下创建两个包路径，liba 和 main，liba用来实验隐藏代码</p>
+<p>2.项目各文件如下</p>
 <ul>
 <li><p>liba/dummy.go, 调用代码先注释掉，避免冲突</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> liba</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> libdummy() &#123;</span><br><span class="line">    fmt.Println(<span class="string">"this is in dummy lib"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// func LibTest() &#123;</span></span><br><span class="line"><span class="comment">//  fmt.Println("dummy library")</span></span><br><span class="line"><span class="comment">//  libdummy()</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
@@ -206,19 +277,10 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"liba"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> main() &#123;</span><br><span class="line">    liba.LibTest()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<ol>
-<li><p>好了，我们先编译真实的library, 得到.a 文件，并跑下看看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将真实的library 拷贝出来备用<br><code>cp  pkg/darwin_amd64/liba.a .</code></p>
-</li>
-<li><p>将real.go 的代码注释掉，dummy.go 的代码取消注释，并编译跑下看看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">dummy library</span><br><span class="line">this is in dummy lib</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>见证奇迹的时刻到了，我们把real.go 的实现给copy回来，编译跑下看看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: cp liba.a pkg/darwin_amd64</span><br><span class="line"> ~/exercises/golib: go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<p>3.好了，我们先编译真实的library, 得到.a 文件，并跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure></p>
+<p>4.将真实的library 拷贝出来备用<br><code>cp  pkg/darwin_amd64/liba.a .</code></p>
+<p>5.将real.go 的代码注释掉，dummy.go 的代码取消注释，并编译跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">dummy library</span><br><span class="line">this is in dummy lib</span><br></pre></td></tr></table></figure></p>
+<p>6.见证奇迹的时刻到了，我们把real.go 的实现给copy回来，编译跑下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> ~/exercises/golib: cp liba.a pkg/darwin_amd64</span><br><span class="line"> ~/exercises/golib: go install ./...</span><br><span class="line"> ~/exercises/golib: bin/main</span><br><span class="line">real library</span><br><span class="line">this is in real lib</span><br></pre></td></tr></table></figure></p>
 <p>通过这个实验，可以看出go最后的链接步骤是比较代码和.a文件的创建时间，如果.a 创建的晚，就不会再次对代码进行编译，只做链接。大家可以将上面的cp 换成mv验证下 :) 总结下，如果想发布二进制的go library，就要将.a 文件和 stub 代码一起交付给使用者，并且在编译的时候做一次替换。</p>
 <p>如果有些软件需要跨平台编译，而且还有些底层访问的C代码，可以先编译成.a 文件，然后放到CI 平台上，让Go交叉编译的时候链接就好了。 </p>
 
@@ -228,6 +290,10 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+	</div>
+
       
 
       
@@ -315,6 +381,10 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li></ul>
+	</div>
+
       
 
       
